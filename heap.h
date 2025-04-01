@@ -1,3 +1,5 @@
+#ifndef HEAP_H
+#define HEAP_H
 #include <iostream>
 using namespace std;
 
@@ -24,3 +26,4 @@ public:
     int size() const;
 };
 
+#endif // HEAP_H

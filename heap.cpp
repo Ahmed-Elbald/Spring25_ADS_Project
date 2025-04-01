@@ -1,8 +1,5 @@
-#include <iostream>
 #include "heap.h"
 using namespace std;
-
-
 
 template <typename T, typename compare_function, typename get_function>
 void Heap<T, compare_function, get_function>::insert(T value) {
