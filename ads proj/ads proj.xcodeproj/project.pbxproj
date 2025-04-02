@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D8B7AFD12D9DAFCB00896F77 /* vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B7AFD02D9DAFCB00896F77 /* vector.cpp */; };
+		D8B7AFD52D9DB1D600896F77 /* pair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8B7AFD42D9DB1D600896F77 /* pair.cpp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		D835E8632D9D9D27002BE8B2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,6 +25,10 @@
 
 /* Begin PBXFileReference section */
 		D835E8652D9D9D27002BE8B2 /* ads proj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ads proj"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8B7AFD02D9DAFCB00896F77 /* vector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vector.cpp; path = ../vector.cpp; sourceTree = SOURCE_ROOT; };
+		D8B7AFD22D9DB14100896F77 /* vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = vector.h; path = ../vector.h; sourceTree = SOURCE_ROOT; };
+		D8B7AFD32D9DB17600896F77 /* pair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pair.h; path = ../pair.h; sourceTree = SOURCE_ROOT; };
+		D8B7AFD42D9DB1D600896F77 /* pair.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = pair.cpp; path = ../pair.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -44,6 +53,10 @@
 		D835E85C2D9D9D27002BE8B2 = {
 			isa = PBXGroup;
 			children = (
+				D8B7AFD42D9DB1D600896F77 /* pair.cpp */,
+				D8B7AFD22D9DB14100896F77 /* vector.h */,
+				D8B7AFD32D9DB17600896F77 /* pair.h */,
+				D8B7AFD02D9DAFCB00896F77 /* vector.cpp */,
 				D835E8672D9D9D27002BE8B2 /* ads proj */,
 				D835E8662D9D9D27002BE8B2 /* Products */,
 			);
@@ -120,6 +133,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8B7AFD12D9DAFCB00896F77 /* vector.cpp in Sources */,
+				D8B7AFD52D9DB1D600896F77 /* pair.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
