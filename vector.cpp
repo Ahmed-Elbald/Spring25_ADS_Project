@@ -43,7 +43,7 @@ Vector<T>::~Vector() {
 }
 
 template <typename T>
-void Vector<T>::pushBack(T element) {
+void Vector<T>::push_back(T element) {
     if (size >= capacity) {
         int newCapacity = capacity * 2;
         T* newArr = new T[newCapacity];
@@ -62,10 +62,10 @@ void Vector<T>::pushBack(T element) {
 }
 
 template <typename T>
-void Vector<T>::pushAt(T data, int index) {
+void Vector<T>::push_at(T data, int index) {
     if (index < 0 || index > size) return;
 
-    if (size >= capacity) pushBack(T());
+    if (size >= capacity) push_back(T());
 
     for (int i = size; i > index; i--) {
         arr[i] = arr[i - 1];
@@ -75,7 +75,7 @@ void Vector<T>::pushAt(T data, int index) {
 }
 
 template <typename T>
-void Vector<T>::popBack() {
+void Vector<T>::pop_back() {
     if (size > 0) size--;
 }
 
@@ -88,17 +88,17 @@ T& Vector<T>::operator[](int index) {
 }
 
 template <typename T>
-int Vector<T>::getSize() const {
+int Vector<T>::get_size() const {
     return size;
 }
 
 template <typename T>
-int Vector<T>::getCapacity() const {
+int Vector<T>::get_capacity() const {
     return capacity;
 }
 
 template <typename T>
-T& Vector<T>::getAt(int index) {
+T& Vector<T>::get_at(int index) {
     if (index < 0 || index >= size) {
         throw std::out_of_range("Index out of bounds");
     }
@@ -110,4 +110,3 @@ template class Vector<int>;
 template class Vector<double>;
 template class Vector<std::string>;
 template class Vector<char>;
-
