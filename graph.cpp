@@ -46,6 +46,8 @@ vector<string> Graph::getShortestPath(string firstCity, string secondCity)
     return move(cityPath);
 }   
 
+
+// TODO: Move this logic to the main function in the form of "add_edge" function
 void Graph::initialize() {
 
     // Open the file containing the data
