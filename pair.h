@@ -17,7 +17,7 @@ public:
 
     // Assignment operator
     Pair<T1, T2>& operator=(const Pair<T1, T2>& other);
-}
+};
 
 /**
  *  Documentation *
