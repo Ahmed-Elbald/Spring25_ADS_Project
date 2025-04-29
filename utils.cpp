@@ -19,3 +19,6 @@ int getFirstPair(pair<int, int> p) {
     return p.first;
 }
 
+int get_first_pair_of_pair(pair<pair<int, int>, int> p) {
+    return p.first.first;
+}

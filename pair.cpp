@@ -5,7 +5,7 @@
 //  Created by youssef salem on 4/2/25.
 //
 
-#include "Pair.h"
+#include "pair.h"
 #include <string>
 
 /**
@@ -18,7 +18,7 @@
  * - A Pair object is created with default-initialized values.
  */
 template <typename T1, typename T2>
-Pair<T1, T2>::Pair() : first(), second() {}
+pair<T1, T2>::pair() : first(), second() {}
 
 /**
  * Parameterized constructor.
@@ -31,7 +31,7 @@ Pair<T1, T2>::Pair() : first(), second() {}
  * - A Pair object is created with the given first and second values.
  */
 template <typename T1, typename T2>
-Pair<T1, T2>::Pair(const T1& first, const T2& second) : first(first), second(second) {}
+pair<T1, T2>::pair(const T1& first, const T2& second) : first(first), second(second) {}
 
 /**
  * Copy constructor.
@@ -43,7 +43,7 @@ Pair<T1, T2>::Pair(const T1& first, const T2& second) : first(first), second(sec
  * - A new Pair object is created as a copy of other.
  */
 template <typename T1, typename T2>
-Pair<T1, T2>::Pair(const Pair<T1, T2>& other) : first(other.first), second(other.second) {}
+pair<T1, T2>::pair(const pair<T1, T2>& other) : first(other.first), second(other.second) {}
 
 /**
  * Assignment operator.
@@ -56,7 +56,7 @@ Pair<T1, T2>::Pair(const Pair<T1, T2>& other) : first(other.first), second(other
  * - Returns a reference to the current object.
  */
 template <typename T1, typename T2>
-Pair<T1, T2>& Pair<T1, T2>::operator=(const Pair<T1, T2>& other) {
+pair<T1, T2>& pair<T1, T2>::operator=(const pair<T1, T2>& other) {
     if (this != &other) {
         first = other.first;
         second = other.second;
@@ -65,9 +65,10 @@ Pair<T1, T2>& Pair<T1, T2>::operator=(const Pair<T1, T2>& other) {
 }
 
 
-template class Pair<int, int>;
-template class Pair<int, double>;
-template class Pair<std::string, std::string>;
+template class pair<int, int>;
+template class pair<int, double>;
+template class pair<pair<int, int>, int>;
+template class pair<std::string, std::string>;
 
-template class Pair<double, double>;
-template class Pair<int, std::string>;
+template class pair<double, double>;
+template class pair<int, std::string>;

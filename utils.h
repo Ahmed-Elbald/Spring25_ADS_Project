@@ -14,6 +14,6 @@ int getFirstTuple(tuple<int ,int ,int> t) ;
 bool minCPM (int a, int b);
 bool maxCPM (int a, int b);
 int getFirstPair(pair<int, int> p);
-
+int get_first_pair_of_pair(pair<pair<int, int>, int> p) ;
 
 #endif //UTILS_H
