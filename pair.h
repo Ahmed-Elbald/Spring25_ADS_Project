@@ -1,22 +1,22 @@
 #ifndef PAIR_H
 #define PAIR_H
 template <typename T1, typename T2>
-class Pair {
+class pair {
 public:
     T1 first;
     T2 second;
 
     // Default constructor
-    Pair();
+    pair();
 
     // Parameterized constructor
-    Pair(const T1& first, const T2& second);
+    pair(const T1& first, const T2& second);
 
     // Copy constructor
-    Pair(const Pair<T1, T2>& other);
+    pair(const pair<T1, T2>& other);
 
     // Assignment operator
-    Pair<T1, T2>& operator=(const Pair<T1, T2>& other);
+    pair<T1, T2>& operator=(const pair<T1, T2>& other);
 };
 
 /**
@@ -25,44 +25,44 @@ public:
  */
 
 /*
- * Pair()
+ * pair()
  *
  * Preconditions:
  * - None.
  *
  * Postconditions:
- * - A Pair object is created with default-initialized values.
+ * - A pair object is created with default-initialized values.
  */
 
 /**
- * Pair(const T1& first, const T2& second)
+ * pair(const T1& first, const T2& second)
  *
  * Preconditions:
  * - first must be a valid object of type T1.
  * - second must be a valid object of type T2.
  *
  * Postconditions:
- * - A Pair object is created with the given first and second values.
+ * - A pair object is created with the given first and second values.
  */
 
 /**
- * Pair(const Pair<T1, T2>& other)
+ * pair(const Pair<T1, T2>& other)
  *
  * Preconditions:
- * - other must be a valid Pair object.
+ * - other must be a valid pair object.
  *
  * Postconditions:
- * - A new Pair object is created as a copy of other.
+ * - A new pair object is created as a copy of other.
  */
 
 /**
- * Pair<T1, T2>& operator=(const Pair<T1, T2>& other)
+ * pair<T1, T2>& operator=(const Pair<T1, T2>& other)
  *
  * Preconditions:
- * - other must be a valid Pair object.
+ * - other must be a valid pair object.
  *
  * Postconditions:
- * - The current Pair object is assigned the values of other.
+ * - The current pair object is assigned the values of other.
  * - Returns a reference to the current object.
  */
 
