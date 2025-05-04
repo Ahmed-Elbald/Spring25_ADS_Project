@@ -11,22 +11,22 @@
 #include <utility>
 #include <string>
 template <typename T>
-class Vector {
+class vector {
     T* arr;
     int capacity;
     int size;
 public:
     // Constructor
-    Vector(int s = 20);
+    vector(int s = 20);
 
     // Copy constructor
-    Vector(const Vector<T>& other);
+    vector(const vector<T>& other);
 
     // Assignment operator
-    Vector<T>& operator=(const Vector<T>& other);
+    vector<T>& operator=(const vector<T>& other);
 
     // Destructor
-    ~Vector();
+    ~vector();
 
     // push_back method
     void push_back(T element);

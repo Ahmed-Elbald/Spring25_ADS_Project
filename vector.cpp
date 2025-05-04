@@ -5,7 +5,7 @@
 //  Created by youssef salem on 4/2/25.
 //
 
-#include "Vector.h"
+#include "vector.h"
 
 /**
  * Constructs a vector with specified initial capacity.
@@ -18,7 +18,7 @@
  * - size is initialized to 0.
  */
 template <typename T>
-Vector<T>::Vector(int s) : capacity(s), size(0) {
+vector<T>::vector(int s) : capacity(s), size(0) {
     arr = new T[s];
 }
 
@@ -32,7 +32,7 @@ Vector<T>::Vector(int s) : capacity(s), size(0) {
  * - A deep copy of other is created.
  */
 template <typename T>
-Vector<T>::Vector(const Vector<T>& other) : capacity(other.capacity), size(other.size) {
+vector<T>::vector(const vector<T>& other) : capacity(other.capacity), size(other.size) {
     arr = new T[capacity];
     for (int i = 0; i < size; i++) {
         arr[i] = other.arr[i];
@@ -50,7 +50,7 @@ Vector<T>::Vector(const Vector<T>& other) : capacity(other.capacity), size(other
  * - Old memory is deallocated.
  */
 template <typename T>
-Vector<T>& Vector<T>::operator=(const Vector<T>& other) {
+vector<T>& vector<T>::operator=(const vector<T>& other) {
     if (this == &other) return *this;
 
     delete[] arr;
@@ -75,7 +75,7 @@ Vector<T>& Vector<T>::operator=(const Vector<T>& other) {
  * - Dynamically allocated memory is released.
  */
 template <typename T>
-Vector<T>::~Vector() {
+vector<T>::~vector() {
     delete[] arr;
     arr = nullptr;
 }
@@ -92,7 +92,7 @@ Vector<T>::~Vector() {
  * - Capacity is doubled if necessary.
  */
 template <typename T>
-void Vector<T>::push_back(T element) {
+void vector<T>::push_back(T element) {
     if (size >= capacity) {
         int newCapacity = capacity * 2;
         T* newArr = new T[newCapacity];
@@ -122,7 +122,7 @@ void Vector<T>::push_back(T element) {
  * - size is incremented.
  */
 template <typename T>
-void Vector<T>::push_at(T data, int index) {
+void vector<T>::push_at(T data, int index) {
     if (index < 0 || index > size) return;
 
     if (size >= capacity) push_back(T());
@@ -145,7 +145,7 @@ void Vector<T>::push_at(T data, int index) {
  * - size is decremented.
  */
 template <typename T>
-void Vector<T>::pop_back() {
+void vector<T>::pop_back() {
     if (size > 0) size--;
 }
 
@@ -160,7 +160,7 @@ void Vector<T>::pop_back() {
  * - Throws out_of_range if index is invalid.
  */
 template <typename T>
-T& Vector<T>::operator[](int index) {
+T& vector<T>::operator[](int index) {
     if (index < 0 || index >= size) {
         throw std::out_of_range("Index out of bounds");
     }
@@ -177,7 +177,7 @@ T& Vector<T>::operator[](int index) {
  * - Returns size.
  */
 template <typename T>
-int Vector<T>::get_size() const {
+int vector<T>::get_size() const {
     return size;
 }
 
@@ -191,7 +191,7 @@ int Vector<T>::get_size() const {
  * - Returns capacity.
  */
 template <typename T>
-int Vector<T>::get_capacity() const {
+int vector<T>::get_capacity() const {
     return capacity;
 }
 
@@ -206,7 +206,7 @@ int Vector<T>::get_capacity() const {
  * - Throws out_of_range if index is invalid.
  */
 template <typename T>
-T& Vector<T>::get_at(int index) {
+T& vector<T>::get_at(int index) {
     if (index < 0 || index >= size) {
         throw std::out_of_range("Index out of bounds");
     }
@@ -214,7 +214,7 @@ T& Vector<T>::get_at(int index) {
 }
 
 // Explicit instantiations
-template class Vector<int>;
-template class Vector<double>;
-template class Vector<std::string>;
-template class Vector<char>;
+template class vector<int>;
+template class vector<double>;
+template class vector<std::string>;
+template class vector<char>;

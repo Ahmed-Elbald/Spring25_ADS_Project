@@ -22,7 +22,7 @@ vector<string> Graph::getShortestPath(string firstCity, string secondCity)
 
     // Validation
     if (start == -1 || end == -1)
-    throw invalid_argument("Invalid city name(s)");
+        throw invalid_argument("Invalid city name(s)");
     
     // Dijkstra's algorithm
     vector<int> distances, previous;
