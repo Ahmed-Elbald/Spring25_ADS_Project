@@ -163,9 +163,9 @@ void Graph::dijkstra(int start, std::vector<int> &distances, std::vector<int> &p
         int idx = pq.top().second;
         pq.pop();
 
-        for(int i = 0; i < (int)adjacencyList.size(); i++) {
-            auto nextCity = adjacencyList[i][idx].first;
-            auto distance = adjacencyList[i][idx].second;
+        for(int i = 0; i < (int)adjacencyList[idx].size(); i++) {
+            auto nextCity = adjacencyList[idx][i].first;
+            auto distance = adjacencyList[idx][i].second;
             // Calculate the new distance
             int newDistance = distances[idx] + distance;
     
