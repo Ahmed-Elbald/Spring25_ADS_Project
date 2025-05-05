@@ -18,9 +18,9 @@ int main() {
     try {
         auto path = graph.getShortestPath(firstCity, secondCity);
         cout << "Shortest path from " << firstCity << " to " << secondCity << endl;
-        for(int i = 0; i < path.get_size(); i++) {
+        for(int i = 0; i < path.size(); i++) {
             cout << path[i];
-            if (i != path.get_size() - 1)
+            if (i != path.size() - 1)
                 cout << " -> ";
         }
         cout << endl;

@@ -13,7 +13,7 @@ void Graph::initialize(const std::string& _filename) {
     initialize();
 }
 
-vector<std::string> Graph::getShortestPath(std::string firstCity, std::string secondCity)
+std::vector<std::string> Graph::getShortestPath(std::string firstCity, std::string secondCity)
 {
 
     // Get the index of the cities
@@ -25,7 +25,7 @@ vector<std::string> Graph::getShortestPath(std::string firstCity, std::string se
         throw std::invalid_argument("Invalid city name(s)");
     
     // Dijkstra's algorithm
-    vector<int> distances, previous;
+    std::vector<int> distances, previous;
     dijkstra(start, distances, previous);
     
     // Validation
@@ -33,12 +33,12 @@ vector<std::string> Graph::getShortestPath(std::string firstCity, std::string se
         throw std::runtime_error("No path found between the cities");
 
     // Constructing the path
-    vector<int> _path;
+    std::vector<int> _path;
     for (int at = end; at != -1; at = previous[at])
         _path.push_back(at);
 
-    int pathSize = static_cast<int>(_path.get_size());
-    vector<std::string> cityPath(pathSize);
+    int pathSize = static_cast<int>(_path.size());
+    std::vector<std::string> cityPath(pathSize);
 
     for (int i = 0; i < pathSize; i++)
         cityPath[pathSize - i - 1] = cities[_path[i]];
@@ -91,15 +91,15 @@ void Graph::initialize() {
 
 // Getters and Setters
 int Graph::getNumberOfCities() const {
-    return static_cast<int>(cities.get_size());
+    return static_cast<int>(cities.size());
 }
 
 
 // Helpers
-vector<std::string> Graph::splitLine(const std::string &line) {
+std::vector<std::string> Graph::splitLine(const std::string &line) {
 
     // Allocate Memory
-    vector<std::string> result(3);
+    std::vector<std::string> result(3);
 
     // Splitting
     int idx = 0;
@@ -130,9 +130,9 @@ int Graph::getCityIndex(const std::string &city) const {
     int start = 0, end = getNumberOfCities() - 1;
     while(start <= end) {
         int mid = (start + end) / 2;
-        if (cities.get_at(mid) == city)
+        if (cities[mid] == city)
             return mid;
-        else if (cities.get_at(mid) < city)
+        else if (cities[mid] < city)
             start = mid + 1;
         else
             end = mid - 1;
@@ -142,34 +142,38 @@ int Graph::getCityIndex(const std::string &city) const {
 
 }
 
-void Graph::dijkstra(int start, vector<int> &distances, vector<int> &previous) const {
+void Graph::dijkstra(int start, std::vector<int> &distances, std::vector<int> &previous) const {
 
     // Setup
     int numberOfCities = getNumberOfCities();
     distances.resize(numberOfCities, INT_MAX);
     previous.resize(numberOfCities, -1);
-    HEAP_H::priority_queue<PAIR_H::pair<int, int>, vector<PAIR_H::pair<int, int>>, std::greater<PAIR_H::pair<int, int>>> pq;
+    std::priority_queue<
+    std::pair<int, int>,
+    std::vector<std::pair<int, int>>,
+    std::greater<std::pair<int, int>>
+    > pq;
 
     // Initialization
     distances[start] = 0;
-    pq.insert({0, start});
+    pq.push(std::pair<int, int>(0, start));
 
     while(!pq.empty()) {
         // Get the current city
         int idx = pq.top().second;
         pq.pop();
 
-        for(int i = 0; i < (int)adjacencyList.get_size(); i++) {
-            auto nextCity = adjacencyList.get_at(i).get_at(idx).first;
-            auto distance = adjacencyList.get_at(i).get_at(idx).second;
+        for(int i = 0; i < (int)adjacencyList.size(); i++) {
+            auto nextCity = adjacencyList[i][idx].first;
+            auto distance = adjacencyList[i][idx].second;
             // Calculate the new distance
-            int newDistance = distances.get_at(idx) + distance;
+            int newDistance = distances[idx] + distance;
     
             // If the new distance is shorter, update it
             if (newDistance < distances[nextCity]) {
                 distances[nextCity] = newDistance;
                 previous[nextCity] = idx;
-                pq.insert({newDistance, nextCity});
+                pq.push(std::pair<int, int>(newDistance, nextCity));
             }
         }
     }
