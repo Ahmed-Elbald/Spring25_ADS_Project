@@ -17,7 +17,7 @@ void priority_queue<T, compare_function, get_function>::insert(T value) {
 template <typename T, typename compare_function, typename get_function>
 void priority_queue<T, compare_function, get_function>::pop() {
     if (count == 0) return;
-    swap(heap[0], heap[count - 1]);
+    std::swap(heap[0], heap[count - 1]);
     count--;
     heapifyDown(0);
 }
@@ -42,7 +42,7 @@ void priority_queue<T, compare_function, get_function>::heapifyUp(int index) {
     while (index > 0) {
         int parent = (index - 1) / 2;
         if (compare(get(heap[index]), get(heap[parent]))) {
-            swap(heap[index], heap[parent]);
+            std::swap(heap[index], heap[parent]);
             index = parent;
         } else {
             break;
@@ -64,7 +64,7 @@ void priority_queue<T, compare_function, get_function>::heapifyDown(int index) {
             best = right;
         }
         if (best != index) {
-            swap(heap[index], heap[best]);
+            std::swap(heap[index], heap[best]);
             index = best;
         } else {
             break;

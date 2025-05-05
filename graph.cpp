@@ -2,18 +2,18 @@
 #include "graph.h"
 
 // Constructors
-Graph::Graph(const string &_filename) {
+Graph::Graph(const std::string &_filename) {
     filename = _filename;
     initialize(filename);
 }
 
 // Member functions
-void Graph::initialize(const string& _filename) {
+void Graph::initialize(const std::string& _filename) {
     filename = _filename;
     initialize();
 }
 
-vector<string> Graph::getShortestPath(string firstCity, string secondCity)
+vector<std::string> Graph::getShortestPath(std::string firstCity, std::string secondCity)
 {
 
     // Get the index of the cities
@@ -22,7 +22,7 @@ vector<string> Graph::getShortestPath(string firstCity, string secondCity)
 
     // Validation
     if (start == -1 || end == -1)
-        throw invalid_argument("Invalid city name(s)");
+        throw std::invalid_argument("Invalid city name(s)");
     
     // Dijkstra's algorithm
     vector<int> distances, previous;
@@ -30,15 +30,15 @@ vector<string> Graph::getShortestPath(string firstCity, string secondCity)
     
     // Validation
     if (distances[end] == INT_MAX)
-        throw runtime_error("No path found between the cities");
+        throw std::runtime_error("No path found between the cities");
 
     // Constructing the path
     vector<int> _path;
     for (int at = end; at != -1; at = previous[at])
         _path.push_back(at);
 
-    int pathSize = static_cast<int>(_path.size());
-    vector<string> cityPath(pathSize);
+    int pathSize = static_cast<int>(_path.get_size());
+    vector<std::string> cityPath(pathSize);
 
     for (int i = 0; i < pathSize; i++)
         cityPath[pathSize - i - 1] = cities[_path[i]];
@@ -51,36 +51,36 @@ vector<string> Graph::getShortestPath(string firstCity, string secondCity)
 void Graph::initialize() {
 
     // Open the file containing the data
-    ifstream file("./data/" + filename);
+    std::ifstream file("./data/" + filename);
 
     // Validation
     if (!file.is_open())
-        throw runtime_error("Could not open file at path: " + filename);
+        throw std::runtime_error("Could not open file at path: " + filename);
 
     // Ignoring the first line (header)
-    string line;
-    getline(file, line);
+    std::string line;
+    std::getline(file, line);
 
     // Build Adjacency list
-    string lastCity;
+    std::string lastCity;
     int idx = 0;
-    while (getline(file, line)) {
+    while (std::getline(file, line)) {
 
         // Get data
         auto lineSplitted = splitLine(line);
-        const string& firstCity = toLowerCase(lineSplitted[0]);
-        const string& distance = lineSplitted[2];
+        const std::string& firstCity = toLowerCase(lineSplitted[0]);
+        const std::string& distance = lineSplitted[2];
 
         // If a new city is introduced
         if (firstCity != lastCity) {
             idx = 0;
-            adjacencyList.emplace_back();
+            adjacencyList.push_back({});
             cities.push_back(firstCity);
         }
 
         // Add a new edge
         if (stoi(distance) != 0)
-            adjacencyList.back().emplace_back(idx, stoi(distance));
+            adjacencyList.back().push_back({idx, stoi(distance)});
 
         // Next iteration
         lastCity = firstCity;
@@ -91,15 +91,15 @@ void Graph::initialize() {
 
 // Getters and Setters
 int Graph::getNumberOfCities() const {
-    return static_cast<int>(cities.size());
+    return static_cast<int>(cities.get_size());
 }
 
 
 // Helpers
-vector<string> Graph::splitLine(const string &line) {
+vector<std::string> Graph::splitLine(const std::string &line) {
 
     // Allocate Memory
-    vector<string> result(3);
+    vector<std::string> result(3);
 
     // Splitting
     int idx = 0;
@@ -115,7 +115,7 @@ vector<string> Graph::splitLine(const string &line) {
 
 }
 
-string Graph::toLowerCase(string str) {
+std::string Graph::toLowerCase(std::string str) {
     // Convert to lower case
     for (char &c : str)
         if (isupper(c))
@@ -124,15 +124,15 @@ string Graph::toLowerCase(string str) {
     return str;
 }
 
-int Graph::getCityIndex(const string &city) const {
+int Graph::getCityIndex(const std::string &city) const {
 
     // Applying binary search
     int start = 0, end = getNumberOfCities() - 1;
     while(start <= end) {
         int mid = (start + end) / 2;
-        if (cities[mid] == city)
+        if (cities.get_at(mid) == city)
             return mid;
-        else if (cities[mid] < city)
+        else if (cities.get_at(mid) < city)
             start = mid + 1;
         else
             end = mid - 1;
@@ -148,26 +148,28 @@ void Graph::dijkstra(int start, vector<int> &distances, vector<int> &previous) c
     int numberOfCities = getNumberOfCities();
     distances.resize(numberOfCities, INT_MAX);
     previous.resize(numberOfCities, -1);
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    HEAP_H::priority_queue<PAIR_H::pair<int, int>, vector<PAIR_H::pair<int, int>>, std::greater<PAIR_H::pair<int, int>>> pq;
 
     // Initialization
     distances[start] = 0;
-    pq.push({0, start});
+    pq.insert({0, start});
 
     while(!pq.empty()) {
         // Get the current city
         int idx = pq.top().second;
         pq.pop();
 
-        for(auto [nextCity, distance] : adjacencyList[idx]) {
+        for(int i = 0; i < (int)adjacencyList.get_size(); i++) {
+            auto nextCity = adjacencyList.get_at(i).get_at(idx).first;
+            auto distance = adjacencyList.get_at(i).get_at(idx).second;
             // Calculate the new distance
-            int newDistance = distances[idx] + distance;
-
+            int newDistance = distances.get_at(idx) + distance;
+    
             // If the new distance is shorter, update it
             if (newDistance < distances[nextCity]) {
                 distances[nextCity] = newDistance;
                 previous[nextCity] = idx;
-                pq.push({newDistance, nextCity});
+                pq.insert({newDistance, nextCity});
             }
         }
     }

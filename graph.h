@@ -6,34 +6,32 @@
 #include <fstream>
 #include <string>
 #include <stdexcept>
-#include <vector>
-#include <queue>
-
-// Used namespace
-using namespace std;
+#include "heap.cpp"
+#include "vector.cpp"
+#include "pair.cpp"
 
 // Type definitions
-typedef vector<vector<pair<int, int>>> AdjacencyType;
+typedef vector<vector<PAIR_H::pair<int, int>>> AdjacencyType;
 
 // Graph class
 class Graph {
 
 // Member Variables
 private:
-    string filename;
+    std::string filename;
 
-    vector<string> cities;
+    vector<std::string> cities;
     AdjacencyType adjacencyList;
 
 // Constructors
 public:
     Graph() = default;
-    explicit Graph(const string& _filename);
+    explicit Graph(const std::string& _filename);
 
 // Member functions
 public:
-    void initialize(const string& _filename);
-    vector<string> getShortestPath(string firstCity, string secondCity);
+    void initialize(const std::string& _filename);
+    vector<std::string> getShortestPath(std::string firstCity, std::string secondCity);
 
 private:
     void initialize();
@@ -44,9 +42,9 @@ public:
 
 // Helpers
 private:
-    static vector<string> splitLine(const string &line);
-    static string toLowerCase(string str);
-    int getCityIndex(const string &city) const;
+    static vector<std::string> splitLine(const std::string &line);
+    static std::string toLowerCase(std::string str);
+    int getCityIndex(const std::string &city) const;
     void dijkstra(int start, vector<int> &distances, vector<int> &previous) const;
 
 

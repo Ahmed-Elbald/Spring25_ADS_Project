@@ -16,6 +16,7 @@ class priority_queue {
     void heapifyDown(int index);
 
 public:
+    priority_queue() = default;
     priority_queue(get_function get, compare_function compare);
     ~priority_queue() = default;
 

@@ -28,6 +28,9 @@ public:
     // Destructor
     ~vector();
 
+    // Resizes the vector to the new specified size.
+    void resize(int newSizem, T defaultValue = T());
+
     // push_back method
     void push_back(T element);
 
@@ -44,10 +47,35 @@ public:
     int get_capacity() const;
 
     // Returning the element at the specified index
-    T& get_at(int index);
+    T get_at(int index) const;
+
+    // Return the first element
+    T& front();
+
+    // Return the last element
+    T& back();
 
     // []operator overloading
     T& operator[](int index);
+
+    private:
+    // Helper methods
+    // Initializes the elements of the vector to the default value.
+    void initialize();
+    // Copies elements from another vector.
+    void adjustCapacity(int newCapacity);
+    // Allocates memory for the vector.
+    void allocate();
+    // Deallocates memory.
+    void deallocate();
+    // Checks if there is enough space for additional elements.
+    bool hasSpace(int numOfNewItems = 1);
+    // Checks if the vector is empty.
+    bool isEmpty();
+    // Validates the size parameter.
+    void validateSize(int size);
+    // Checks if the given range is within the bounds of the vector.
+    void checkBoundries(const T* first, const T* last);
 };
 
 #endif  // VECTOR_H

@@ -80,6 +80,15 @@ vector<T>::~vector() {
     arr = nullptr;
 }
 
+template<typename T>
+void vector<T>::resize(int newSize, T defaultValue) {
+    adjustCapacity(newSize);
+    size = newSize;
+    for (int i = 0; i < size; i++) {
+        arr[i] = defaultValue;
+    }
+}
+
 /**
  *  Adds an element to the end of the vector.
  *
@@ -206,13 +215,79 @@ int vector<T>::get_capacity() const {
  * - Throws out_of_range if index is invalid.
  */
 template <typename T>
-T& vector<T>::get_at(int index) {
+T vector<T>::get_at(int index) const {
     if (index < 0 || index >= size) {
         throw std::out_of_range("Index out of bounds");
     }
     return arr[index];
 }
 
+/**
+ * @brief Returns the first element.
+ *
+ * Preconditions:
+ * - Vector must not be empty.
+ *
+ * Postconditions:
+ * - Returns a reference to the first element.
+ */
+template <typename T>
+T& vector<T>::front() {
+    if (size == 0) {
+        throw std::out_of_range("Vector is empty");
+    }
+    return arr[0];
+}
+
+/**
+ * @brief Returns the last element.
+ *
+ * Preconditions:
+ * - Vector must not be empty.
+ *
+ * Postconditions:
+ * - Returns a reference to the last element.
+ */
+template <typename T>
+T& vector<T>::back() {
+    if (size == 0) {
+        throw std::out_of_range("Vector is empty");
+    }
+    return arr[size - 1];
+}
+
+template<typename T>
+void vector<T>::initialize() {
+  for (int i = 0; i < capacity; i++)
+    arr[i] = T(); // Default initialization
+}
+
+template<typename T>
+void vector<T>::allocate() {
+  arr = new T[capacity];
+}
+
+template<typename T>
+void vector<T>::deallocate() {
+  if (arr != nullptr)
+    delete [] arr;
+}
+
+template<typename T>
+bool vector<T>::hasSpace(int numOfNewItems) {
+  return size + numOfNewItems <= capacity;
+}
+
+template<typename T>
+bool vector<T>::isEmpty() {
+  return size == 0;
+}
+
+template<typename T>
+void vector<T>::validateSize(int size) {
+  if (size < 0)
+    throw std::runtime_error("Vector size can not be negative.\n");
+}
 // Explicit instantiations
 template class vector<int>;
 template class vector<double>;
