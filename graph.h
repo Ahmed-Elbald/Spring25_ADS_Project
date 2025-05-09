@@ -8,9 +8,9 @@
 #include <stdexcept>
 #include <queue>
 #include <vector>
-// #include "heap.cpp"
+#include "heap.h"
+#include "pair.cpp"
 // #include "std::vector.cpp"
-// #include "pair.cpp"
 
 // Type definitions
 typedef std::vector<std::vector<std::pair<int, int>>> AdjacencyType;

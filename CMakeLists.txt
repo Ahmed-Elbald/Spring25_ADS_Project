@@ -9,6 +9,5 @@ add_executable(
         graph.cpp
         main.cpp
         heap.cpp
-        utils.cpp
         pair.cpp
 )

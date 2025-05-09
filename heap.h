@@ -1,28 +1,24 @@
 #ifndef HEAP_H
 #define HEAP_H
 
+#include "pair.h"
 
-// Template declaration for priority_queue
-template <typename T, typename compare_function, typename get_function>
-class priority_queue {
+// Min heap specialized for pair<int, int>
+class min_heap {
     const int INITIAL_CAPACITY = 100000;
-    T heap[100000];
+    pair<int, int> heap[100000];
     int count = 0;
-
-    get_function get;
-    compare_function compare;
 
     void heapifyUp(int index);
     void heapifyDown(int index);
 
 public:
-    priority_queue() = default;
-    priority_queue(get_function get, compare_function compare);
-    ~priority_queue() = default;
+    min_heap();
+    ~min_heap() = default;
 
-    void insert(T value);
+    void push(pair<int, int> value);
     void pop();
-    T top();
+    pair<int, int> top();
     bool empty() const;
     int size() const;
 };
