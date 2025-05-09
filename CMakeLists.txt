@@ -10,6 +10,5 @@ add_executable(
         main.cpp
         heap.cpp
         utils.cpp
-        vector.cpp
         pair.cpp
 )
