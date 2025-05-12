@@ -1,46 +1,41 @@
-#include <iostream>
 #include "heap.h"
-using namespace std;
+#include "pair.h"
+#include <algorithm> // For std::swap
 
+min_heap::min_heap() {}
 
-
-template <typename T, typename compare_function, typename get_function>
-void Heap<T, compare_function, get_function>::insert(T value) {
+void min_heap::push(pair<int, int> value) {
     if (count >= INITIAL_CAPACITY) return; // Prevent overflow
-    arr[count] = value;
+    heap[count] = value;
     heapifyUp(count);
     count++;
 }
 
-template <typename T, typename compare_function, typename get_function>
-void Heap<T, compare_function, get_function>::pop() {
+void min_heap::pop() {
     if (count == 0) return;
-    swap(arr[0], arr[count - 1]);
+    std::swap(heap[0], heap[count - 1]);
     count--;
     heapifyDown(0);
 }
 
-template <typename T, typename compare_function, typename get_function>
-T Heap<T, compare_function, get_function>::top() {
-    return arr[0];
+pair<int, int> min_heap::top() {
+    return heap[0];
 }
 
-template <typename T, typename compare_function, typename get_function>
-bool Heap<T, compare_function, get_function>::empty() const {
+bool min_heap::empty() const {
     return count == 0;
 }
 
-template <typename T, typename compare_function, typename get_function>
-int Heap<T, compare_function, get_function>::size() const {
+int min_heap::size() const {
     return count;
 }
 
-template <typename T, typename compare_function, typename get_function>
-void Heap<T, compare_function, get_function>::heapifyUp(int index) {
+void min_heap::heapifyUp(int index) {
     while (index > 0) {
         int parent = (index - 1) / 2;
-        if (compare(get(arr[index]), get(arr[parent]))) {
-            swap(arr[index], arr[parent]);
+        // Compare first element of the pair (min heap)
+        if (heap[index].first < heap[parent].first) {
+            std::swap(heap[index], heap[parent]);
             index = parent;
         } else {
             break;
@@ -48,30 +43,24 @@ void Heap<T, compare_function, get_function>::heapifyUp(int index) {
     }
 }
 
-template <typename T, typename compare_function, typename get_function>
-void Heap<T, compare_function, get_function>::heapifyDown(int index) {
+void min_heap::heapifyDown(int index) {
     while (true) {
         int left = 2 * index + 1;
         int right = 2 * index + 2;
-        int best = index;
+        int smallest = index;
 
-        if (left < count && compare(get(arr[left]), get(arr[best]))) {
-            best = left;
+        // Compare first element of the pair (min heap)
+        if (left < count && heap[left].first < heap[smallest].first) {
+            smallest = left;
         }
-        if (right < count && compare(get(arr[right]), get(arr[best]))) {
-            best = right;
+        if (right < count && heap[right].first < heap[smallest].first) {
+            smallest = right;
         }
-        if (best != index) {
-            swap(arr[index], arr[best]);
-            index = best;
+        if (smallest != index) {
+            std::swap(heap[index], heap[smallest]);
+            index = smallest;
         } else {
             break;
         }
     }
 }
-
-// Template instantiation
-template class Heap<int, function<bool(int, int)>, function<int(int)>>;
-template class Heap<pair<int, int>, function<bool(int, int)>, function<int(pair<int, int>)>>;
-template class Heap<tuple<int, int, int>, function<bool(int, int)>, function<int(tuple<int, int, int>)>>;
-

@@ -1,17 +1,13 @@
 cmake_minimum_required(VERSION 3.30)
-project(Heap)
+project(ShortestPath)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(Heap main.cpp
-        heap.h
-        heap.cpp
-        utils.cpp
-        utils.h
+add_executable(
+        ShortestPath
         graph.cpp
-        graph.h
-        vector.cpp
-        vector.h
+        main.cpp
+        heap.cpp
         pair.cpp
-        pair.h
 )
