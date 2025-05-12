@@ -6,8 +6,6 @@
 #include <fstream>
 #include <string>
 #include <stdexcept>
-#include <queue>
-#include <vector>
 #include "heap.cpp"
 #include "pair.cpp"
 #include "vector.cpp"

@@ -5,6 +5,8 @@ int main() {
 
     // To do
     // Add the GUI
+    // Inform the user about the format of the input
+    // Add functions for adding edges
     Graph graph(string("state_distances.csv"));
 
     string firstCity, secondCity;
