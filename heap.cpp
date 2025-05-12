@@ -1,10 +1,9 @@
 #include "heap.h"
-#include "pair.h"
 #include <algorithm> // For std::swap
 
 min_heap::min_heap() {}
 
-void min_heap::push(pair<int, int> value) {
+void min_heap::push(custom::pair<int, int> value) {
     if (count >= INITIAL_CAPACITY) return; // Prevent overflow
     heap[count] = value;
     heapifyUp(count);
@@ -18,7 +17,7 @@ void min_heap::pop() {
     heapifyDown(0);
 }
 
-pair<int, int> min_heap::top() {
+custom::pair<int, int> min_heap::top() {
     return heap[0];
 }
 

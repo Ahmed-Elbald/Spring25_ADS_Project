@@ -8,12 +8,12 @@
 #include <stdexcept>
 #include <queue>
 #include <vector>
-#include "heap.h"
+#include "heap.cpp"
 #include "pair.cpp"
-// #include "std::vector.cpp"
+#include "vector.cpp"
 
 // Type definitions
-typedef std::vector<std::vector<std::pair<int, int>>> AdjacencyType;
+typedef custom::vector<custom::vector<custom::pair<int, int>>> AdjacencyType;
 
 // Graph class
 class Graph {
@@ -22,7 +22,7 @@ class Graph {
 private:
     std::string filename;
 
-    std::vector<std::string> cities;
+    custom::vector<std::string> cities;
     AdjacencyType adjacencyList;
 
 // Constructors
@@ -33,7 +33,7 @@ public:
 // Member functions
 public:
     void initialize(const std::string& _filename);
-    std::vector<std::string> getShortestPath(std::string firstCity, std::string secondCity);
+    custom::vector<std::string> getShortestPath(std::string firstCity, std::string secondCity);
 
 private:
     void initialize();
@@ -44,10 +44,10 @@ public:
 
 // Helpers
 private:
-    static std::vector<std::string> splitLine(const std::string &line);
+    static custom::vector<std::string> splitLine(const std::string &line);
     static std::string toLowerCase(std::string str);
     int getCityIndex(const std::string &city) const;
-    void dijkstra(int start, std::vector<int> &distances, std::vector<int> &previous) const;
+    void dijkstra(int start, custom::vector<int> &distances, custom::vector<int> &previous) const;
 
 
 };
