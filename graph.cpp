@@ -1,5 +1,8 @@
 // Necessary headers
 #include "graph.h"
+#include <iostream>
+using namespace std;
+
 
 // Constructors
 Graph::Graph(const std::string &_filename) {
@@ -43,7 +46,7 @@ std::vector<std::string> Graph::getShortestPath(std::string firstCity, std::stri
     for (int i = 0; i < pathSize; i++)
         cityPath[pathSize - i - 1] = cities[_path[i]];
 
-    return move(cityPath);
+    return std::move(cityPath);
 }   
 
 
@@ -51,7 +54,7 @@ std::vector<std::string> Graph::getShortestPath(std::string firstCity, std::stri
 void Graph::initialize() {
 
     // Open the file containing the data
-    std::ifstream file("./data/" + filename);
+    std::ifstream file("../data/" + filename);
 
     // Validation
     if (!file.is_open())
@@ -69,8 +72,8 @@ void Graph::initialize() {
         // Get data
         auto lineSplitted = splitLine(line);
         const std::string& firstCity = toLowerCase(lineSplitted[0]);
+        const std::string& secondCity = toLowerCase(lineSplitted[1]);
         const std::string& distance = lineSplitted[2];
-
         // If a new city is introduced
         if (firstCity != lastCity) {
             idx = 0;
@@ -99,7 +102,7 @@ int Graph::getNumberOfCities() const {
 std::vector<std::string> Graph::splitLine(const std::string &line) {
 
     // Allocate Memory
-    std::vector<std::string> result(3);
+    std::vector<std::string> result(3 , "");
 
     // Splitting
     int idx = 0;
@@ -108,31 +111,28 @@ std::vector<std::string> Graph::splitLine(const std::string &line) {
             idx++;
             continue;
         }
-        result[idx].append(&c);
+        result[idx] += c ;
     }
-
     return result;
 
 }
 
 std::string Graph::toLowerCase(std::string str) {
     // Convert to lower case
-    for (char &c : str)
-        if (isupper(c))
-            c = tolower(c);
+    for (char &c : str) c = tolower(c);
 
     return str;
 }
 
 int Graph::getCityIndex(const std::string &city) const {
 
-    // Applying binary search
+
     int start = 0, end = getNumberOfCities() - 1;
     while(start <= end) {
         int mid = (start + end) / 2;
         if (cities[mid] == city)
             return mid;
-        else if (cities[mid] < city)
+        if (cities[mid] < city)
             start = mid + 1;
         else
             end = mid - 1;
@@ -148,15 +148,11 @@ void Graph::dijkstra(int start, std::vector<int> &distances, std::vector<int> &p
     int numberOfCities = getNumberOfCities();
     distances.resize(numberOfCities, INT_MAX);
     previous.resize(numberOfCities, -1);
-    std::priority_queue<
-    std::pair<int, int>,
-    std::vector<std::pair<int, int>>,
-    std::greater<std::pair<int, int>>
-    > pq;
+    HEAP_H::min_heap pq;
 
     // Initialization
     distances[start] = 0;
-    pq.push(std::pair<int, int>(0, start));
+    pq.push(PAIR_H::pair<int, int>(0, start));
 
     while(!pq.empty()) {
         // Get the current city
@@ -173,7 +169,7 @@ void Graph::dijkstra(int start, std::vector<int> &distances, std::vector<int> &p
             if (newDistance < distances[nextCity]) {
                 distances[nextCity] = newDistance;
                 previous[nextCity] = idx;
-                pq.push(std::pair<int, int>(newDistance, nextCity));
+                pq.push(PAIR_H::pair<int, int>(newDistance, nextCity));
             }
         }
     }
