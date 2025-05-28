@@ -1,4 +1,6 @@
-#include "graph.cpp"
+#include "graph.h"
+#include "vector.h"
+#include <iostream>
 using namespace std;
 
 int main() {

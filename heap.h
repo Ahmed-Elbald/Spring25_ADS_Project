@@ -1,12 +1,12 @@
 #ifndef HEAP_H
 #define HEAP_H
 
-#include "pair.cpp"
+#include "pair.h"
 
 // Min heap specialized for pair<int, int>
 class min_heap {
     const int INITIAL_CAPACITY = 100000;
-    custom::pair<int, int> heap[100000];
+    PAIR_H::pair<int, int> heap[100000];
     int count = 0;
 
     void heapifyUp(int index);
@@ -16,9 +16,9 @@ public:
     min_heap();
     ~min_heap() = default;
 
-    void push(custom::pair<int, int> value);
+    void push(PAIR_H::pair<int, int> value);
     void pop();
-    custom::pair<int, int> top();
+    PAIR_H::pair<int, int> top();
     bool empty() const;
     int size() const;
 };

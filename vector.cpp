@@ -1,8 +1,10 @@
 #include "vector.h"
+#include "pair.h"
 #include <stdexcept>
+#include <string>
 
 template<typename T>
-custom::vector<T>::vector(int initialSize, T defaultValue) {
+vector<T>::vector(int initialSize, T defaultValue) {
 
   validateSize(initialSize);
   size_ = capacity_ = initialSize;
@@ -12,17 +14,17 @@ custom::vector<T>::vector(int initialSize, T defaultValue) {
 }
 
 template<typename T>
-custom::vector<T>::vector(const custom::vector<T>& vectorToCopy) {
+vector<T>::vector(const vector<T>& vectorToCopy) {
   copy(vectorToCopy);
 }
 
 template<typename T>
-custom::vector<T>::~vector() {
+vector<T>::~vector() {
   delete [] container_;
 }
 
 template<typename T>
-custom::vector<T>& custom::vector<T>::operator =(const custom::vector<T>& vectorToCopy) {
+vector<T>& vector<T>::operator =(const vector<T>& vectorToCopy) {
   if (this != &vectorToCopy)
     copy(vectorToCopy);
 
@@ -30,109 +32,21 @@ custom::vector<T>& custom::vector<T>::operator =(const custom::vector<T>& vector
 }
 
 template<typename T>
-bool custom::vector<T>::operator ==(const custom::vector<T>& vectorToCompare) {
-  if (size_ != vectorToCompare.size_) return false;
-  for(int i = 0; i < size_; i++)
-    if (container_[i] != vectorToCompare.container_[i])
-      return false;
-
-  return true;
-}
-
-template<typename T>
-bool custom::vector<T>::operator !=(const custom::vector<T>& vectorToCompare) {
-  return !operator==(vectorToCompare);
-}
-
-template<typename T>
-custom::vector<T>& custom::vector<T>::operator +=(const custom::vector<T>& vectorToAdd) {
-  if (size_ != vectorToAdd.size_)
-    throw std::runtime_error("Can not add vectors of different sizes\n");
-
-  for(int i = 0; i < size_; i++)
-    container_[i] += vectorToAdd.container_[i];
-
-  return *this;
-
-}
-
-
-template<typename T>
-custom::vector<T> operator +(custom::vector<T>& lhVector, custom::vector<T>& rhVector) {
-  custom::vector<T> newVector(lhVector);
-  newVector += rhVector;
-  return newVector;
-}
-
-template<typename T>
-custom::vector<T>& custom::vector<T>::operator -=(const custom::vector<T>& vectorToSubtract) {
-  if (size_ != vectorToSubtract.size_)
-    throw std::runtime_error("Can not subtract vectors of different sizes\n");
-
-  for(int i = 0; i < size_; i++)
-    container_[i] -= vectorToSubtract.container_[i];
-
-  return *this;
-
-}
-
-template<typename T>
-custom::vector<T> operator -(custom::vector<T>& lhVector, custom::vector<T>& rhVector) {
-  custom::vector<T> newVector(lhVector);
-  newVector -= rhVector;
-  return newVector;
-}
-
-template<typename T>
-T& custom::vector<T>::operator [](int index) {
+T& vector<T>::operator [](int index) {
   if (index < 0 || index >= size_)
     throw std::out_of_range("Out of range index.\n");
   return container_[index];
 }
 
 template<typename T>
-const T& custom::vector<T>::operator [](int index) const {
+const T& vector<T>::operator [](int index) const {
   if (index < 0 || index >= size_)
     throw std::out_of_range("Out of range index.\n");
   return container_[index];
 }
 
 template<typename T>
-custom::vector<T> custom::vector<T>::operator ++(int) {
-
-  custom::vector<T> tmp(*this);
-  this->operator++();
-  return tmp;
-}
-
-template<typename T>
-custom::vector<T>& custom::vector<T>::operator ++() {
-
-  for(int i = 0; i < size_; i++)
-    container_[i]++;
-
-  return *this;
-}
-
-template<typename T>
-custom::vector<T> custom::vector<T>::operator --(int) {
-
-  custom::vector<T> tmp(*this);
-  this->operator--();
-  return tmp;
-}
-
-template<typename T>
-custom::vector<T>& custom::vector<T>::operator --() {
-
-  for(int i = 0; i < size_; i++)
-    container_[i]--;
-
-  return *this;
-}
-
-template<typename T>
-void custom::vector<T>::resize(int newSize, T filler) {
+void vector<T>::resize(int newSize, T filler) {
   adjustCapacity(newSize);
   size_ = newSize;
 
@@ -142,7 +56,7 @@ void custom::vector<T>::resize(int newSize, T filler) {
 }
 
 template<typename T>
-void custom::vector<T>::push_back(T item) {
+void vector<T>::push_back(T item) {
 
   if (!hasSpace())
     adjustCapacity(capacity_ * 2);
@@ -151,7 +65,7 @@ void custom::vector<T>::push_back(T item) {
 }
 
 template<typename T>
-void custom::vector<T>::pop_back() {
+void vector<T>::pop_back() {
   if (isEmpty()) 
     throw std::runtime_error("The vector is already empty.\n");
 
@@ -159,17 +73,17 @@ void custom::vector<T>::pop_back() {
 }
 
 template<typename T>
-void custom::vector<T>::insert(T* beginIterator, T item) {
+void vector<T>::insert(T* beginIterator, T item) {
   insert(beginIterator, 1, item);
 }
 
 template<typename T>
-void custom::vector<T>::insert(T* beginIterator, int numOfNewItems, T item) {
+void vector<T>::insert(T* beginIterator, int numOfNewItems, T item) {
   insert(beginIterator, beginIterator + numOfNewItems, item);
 }
 
 template<typename T>
-void custom::vector<T>::insert(T* beginIterator, T* endIterator, T item) {
+void vector<T>::insert(T* beginIterator, T* endIterator, T item) {
 
   checkBoundries(beginIterator, endIterator);
 
@@ -191,17 +105,17 @@ void custom::vector<T>::insert(T* beginIterator, T* endIterator, T item) {
 }
 
 template<typename T>
-void custom::vector<T>::erase(T* beginIterator) {
+void vector<T>::erase(T* beginIterator) {
   erase(beginIterator, 1);
 }
 
 template<typename T>
-void custom::vector<T>::erase(T* beginIterator, int numOfDeletedItems) {
+void vector<T>::erase(T* beginIterator, int numOfDeletedItems) {
   erase(beginIterator, beginIterator + numOfDeletedItems);
 }
 
 template<typename T>
-void custom::vector<T>::erase(T* beginIterator, T* endIterator) {
+void vector<T>::erase(T* beginIterator, T* endIterator) {
 
   checkBoundries(beginIterator, endIterator);
 
@@ -215,33 +129,33 @@ void custom::vector<T>::erase(T* beginIterator, T* endIterator) {
 }
 
 template<typename T>
-T& custom::vector<T>::front() const {
+T& vector<T>::front() const {
   if (isEmpty())
     throw std::runtime_error("The vector is empty.\n");
   return container_[0];
 }
 
 template<typename T>
-T& custom::vector<T>::back() const {
+T& vector<T>::back() const {
   if (isEmpty())
     throw std::runtime_error("The vector is empty.\n");
   return container_[size_ - 1];
 }
 
 template<typename T>
-int custom::vector<T>::size() const {return size_;}
+int vector<T>::size() const {return size_;}
 
 template<typename T>
-int custom::vector<T>::capacity() const {return capacity_;}
+int vector<T>::capacity() const {return capacity_;}
 
 template<typename T>
-T* custom::vector<T>::begin() const {return container_;}
+T* vector<T>::begin() const {return container_;}
 
 template<typename T>
-T* custom::vector<T>::end() const {return container_ + capacity_;}
+T* vector<T>::end() const {return container_ + capacity_;}
 
 template<typename T>
-void custom::vector<T>::copy(const custom::vector<T>& vectorToCopy) {
+void vector<T>::copy(const vector<T>& vectorToCopy) {
   capacity_ = vectorToCopy.capacity_;
   size_ = vectorToCopy.size_;
   defaultValue_ = vectorToCopy.defaultValue_;
@@ -254,7 +168,7 @@ void custom::vector<T>::copy(const custom::vector<T>& vectorToCopy) {
 }
 
 template<typename T>
-void custom::vector<T>::adjustCapacity(int newCapacity) {
+void vector<T>::adjustCapacity(int newCapacity) {
   validateSize(newCapacity);
   if (newCapacity == 0) newCapacity = 10;
   capacity_ = newCapacity;
@@ -268,44 +182,50 @@ void custom::vector<T>::adjustCapacity(int newCapacity) {
 }
 
 template<typename T>
-void custom::vector<T>::initialize() {
+void vector<T>::initialize() {
   for (int i = 0; i < capacity_; i++)
     container_[i] = defaultValue_;
 }
 
 template<typename T>
-void custom::vector<T>::allocate() {
+void vector<T>::allocate() {
   container_ = new T[capacity_];
   assert(container_ != nullptr);
 }
 
 template<typename T>
-void custom::vector<T>::deallocate() {
+void vector<T>::deallocate() {
   if (container_ != nullptr)
     delete [] container_;
 }
 
 template<typename T>
-bool custom::vector<T>::hasSpace(int numOfNewItems) {
+bool vector<T>::hasSpace(int numOfNewItems) {
   return size_ + numOfNewItems <= capacity_;
 }
 
 template<typename T>
-bool custom::vector<T>::isEmpty() const {
+bool vector<T>::isEmpty() const {
   return (size_ == 0);
 }
 
 template<typename T>
-void custom::vector<T>::validateSize(int size) {
+void vector<T>::validateSize(int size) {
   if (size < 0)
     throw std::runtime_error("Vector size can not be negative.\n");
 }
 
 template<typename T>
-void custom::vector<T>::checkBoundries(const T* first, const T* last) {
+void vector<T>::checkBoundries(const T* first, const T* last) {
   if (first > last)
     throw std::runtime_error("Start position can not be greater than end position.\n");
   
   if (first < begin() || last > end())
     throw std::runtime_error("Position is out of boundries.\n");
 }
+
+template class vector<int>;
+template class vector<long long>;
+template class vector<std::string>;
+template class vector<vector<PAIR_H::pair<int, int>>>;
+template class vector<PAIR_H::pair<int, int>>;

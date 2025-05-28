@@ -34,3 +34,14 @@
  * - The current Pair object is assigned the values of other.
  * - Returns a reference to the current object.
  */
+template <typename T1, typename T2>
+PAIR_H::pair<T1, T2>& PAIR_H::pair<T1, T2>::operator=(const PAIR_H::pair<T1, T2>& other) {
+    if (this != &other) {
+        first = other.first;
+        second = other.second;
+    }
+    return *this;
+}
+
+template class PAIR_H::pair<long long, long long>;
+template class PAIR_H::pair<int, int>;

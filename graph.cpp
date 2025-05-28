@@ -5,18 +5,18 @@ using namespace std;
 
 
 // Constructors
-Graph::Graph(const std::string &_filename) {
+Graph::Graph(const string &_filename) {
     filename = _filename;
     initialize(filename);
 }
 
 // Member functions
-void Graph::initialize(const std::string& _filename) {
+void Graph::initialize(const string& _filename) {
     filename = _filename;
     initialize();
 }
 
-custom::vector<std::string> Graph::getShortestPath(std::string firstCity, std::string secondCity)
+VECTOR_H::vector<string> Graph::getShortestPath(string firstCity, string secondCity)
 {
 
     // Get the index of the cities
@@ -28,7 +28,7 @@ custom::vector<std::string> Graph::getShortestPath(std::string firstCity, std::s
         throw std::invalid_argument("Invalid city name(s)");
     
     // Dijkstra's algorithm
-    custom::vector<int> distances, previous;
+    VECTOR_H::vector<int> distances, previous;
     dijkstra(start, distances, previous);
     
     // Validation
@@ -36,12 +36,12 @@ custom::vector<std::string> Graph::getShortestPath(std::string firstCity, std::s
         throw std::runtime_error("No path found between the cities");
 
     // Constructing the path
-    custom::vector<int> _path;
+    VECTOR_H::vector<int> _path;
     for (int at = end; at != -1; at = previous[at])
         _path.push_back(at);
 
     int pathSize = static_cast<int>(_path.size());
-    custom::vector<std::string> cityPath(pathSize);
+    VECTOR_H::vector<string> cityPath(pathSize);
 
     for (int i = 0; i < pathSize; i++)
         cityPath[pathSize - i - 1] = cities[_path[i]];
@@ -61,19 +61,19 @@ void Graph::initialize() {
         throw std::runtime_error("Could not open file at path: " + filename);
 
     // Ignoring the first line (header)
-    std::string line;
+    string line;
     std::getline(file, line);
 
     // Build Adjacency list
-    std::string lastCity;
+    string lastCity;
     int idx = 0;
     while (std::getline(file, line)) {
 
         // Get data
         auto lineSplitted = splitLine(line);
-        const std::string& firstCity = toLowerCase(lineSplitted[0]);
-        const std::string& secondCity = toLowerCase(lineSplitted[1]);
-        const std::string& distance = lineSplitted[2];
+        const string& firstCity = toLowerCase(lineSplitted[0]);
+        const string& secondCity = toLowerCase(lineSplitted[1]);
+        const string& distance = lineSplitted[2];
         // If a new city is introduced
         if (firstCity != lastCity) {
             idx = 0;
@@ -99,10 +99,10 @@ int Graph::getNumberOfCities() const {
 
 
 // Helpers
-custom::vector<std::string> Graph::splitLine(const std::string &line) {
+VECTOR_H::vector<string> Graph::splitLine(const string &line) {
 
     // Allocate Memory
-    custom::vector<std::string> result(3 , "");
+    VECTOR_H::vector<string> result(3 , "");
 
     // Splitting
     int idx = 0;
@@ -117,14 +117,14 @@ custom::vector<std::string> Graph::splitLine(const std::string &line) {
 
 }
 
-std::string Graph::toLowerCase(std::string str) {
+string Graph::toLowerCase(string str) {
     // Convert to lower case
     for (char &c : str) c = tolower(c);
 
     return str;
 }
 
-int Graph::getCityIndex(const std::string &city) const {
+int Graph::getCityIndex(const string &city) const {
 
 
     int start = 0, end = getNumberOfCities() - 1;
@@ -142,7 +142,7 @@ int Graph::getCityIndex(const std::string &city) const {
 
 }
 
-void Graph::dijkstra(int start, custom::vector<int> &distances, custom::vector<int> &previous) const {
+void Graph::dijkstra(int start, VECTOR_H::vector<int> &distances, VECTOR_H::vector<int> &previous) const {
 
     // Setup
     int numberOfCities = getNumberOfCities();
@@ -152,7 +152,7 @@ void Graph::dijkstra(int start, custom::vector<int> &distances, custom::vector<i
 
     // Initialization
     distances[start] = 0;
-    pq.push(custom::pair<int, int>(0, start));
+    pq.push(PAIR_H::pair<int, int>(0, start));
 
     while(!pq.empty()) {
         // Get the current city
@@ -169,7 +169,7 @@ void Graph::dijkstra(int start, custom::vector<int> &distances, custom::vector<i
             if (newDistance < distances[nextCity]) {
                 distances[nextCity] = newDistance;
                 previous[nextCity] = idx;
-                pq.push(custom::pair<int, int>(newDistance, nextCity));
+                pq.push(PAIR_H::pair<int, int>(newDistance, nextCity));
             }
         }
     }
